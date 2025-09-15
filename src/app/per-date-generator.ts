@@ -26,4 +26,8 @@ export class PerDateGenerator {
 
     return res;
   }
+
+  getNow() {
+    return new DateObject({ calendar: persian, locale: persian_fa });
+  }
 }

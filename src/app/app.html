@@ -1,13 +1,23 @@
 <app-tool-bar />
 
-<div class="grid grid-cols-[repeat(7,max-content)] gap-4">
-  @for (w of weekDays; track $index) {
-  <span class="text-center">{{ w }}</span>
-  } @for (day of days; track $index) { @if ($index == 0) {
-  <app-date-card [style]="getColStart(day.weekDay)">{{ day.day }}</app-date-card>
-  } @else {
-  <app-date-card>{{ day.day }}</app-date-card>
-  } }
-</div>
+<div class="flex flex-col p-4 gap-4">
+  <div class="w-full flex justify-between">
+    <button matButton="elevated" (click)="preMonth()">ماه قبلی</button>
 
-<router-outlet />
+    <span class="font-bold text-xl">{{ year() }} / {{ month().name }}</span>
+
+    <button matButton="elevated" (click)="nextMonth()">ماه بعدی</button>
+  </div>
+
+  <mat-divider />
+
+  <div class="grid grid-cols-[repeat(7,1fr)] gap-4 w-full text-xs md:text-base">
+    @for (w of weekDays; track $index) {
+    <span class="text-center">{{ w }}</span>
+    } @for (day of days(); track $index) { @if ($index == 0) {
+    <app-date-card [style]="getColStart(day.weekDay)">{{ day.day }}</app-date-card>
+    } @else {
+    <app-date-card>{{ day.day }}</app-date-card>
+    } }
+  </div>
+</div>
