@@ -32,6 +32,7 @@
     "@angular/router": "^20.2.0",
     "@tailwindcss/postcss": "^4.1.13",
     "postcss": "^8.5.6",
+    "react-date-object": "^2.1.9",
     "rxjs": "~7.8.0",
     "tailwindcss": "^4.1.13",
     "tslib": "^2.3.0",

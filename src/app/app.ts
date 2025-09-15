@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { DateCard } from './date-card/date-card';
+import { PerDateGenerator } from './per-date-generator';
 import { ToolBar } from './tool-bar/tool-bar';
 
 @Component({
@@ -10,7 +11,20 @@ import { ToolBar } from './tool-bar/tool-bar';
   styleUrl: './app.scss',
 })
 export class App {
-  protected readonly title = signal('persian-koyomi');
+  title = signal('persian-koyomi');
+  dayGenerator = inject(PerDateGenerator);
 
-  readonly days = Array.from({ length: 31 }, (_, i) => i + 1);
+  days: { day: number; weekDay: number }[] = [];
+
+  weekDays = ['شنبه', 'یکشنبه', 'دوشنبه', 'سه شنبه', 'چهارشنبه', 'پنجشنبه', 'جمعه'];
+
+  ngOnInit() {
+    this.days = this.dayGenerator.getPersianMonthDays(1404, 6);
+  }
+
+  getColStart(num: number) {
+    return {
+      'grid-column-start': num,
+    };
+  }
 }

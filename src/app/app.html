@@ -1,11 +1,13 @@
 <app-tool-bar />
 
 <div class="grid grid-cols-[repeat(7,max-content)] gap-4">
-  @for (day of days; track $index) {
-
-  <app-date-card>{{ day }}</app-date-card>
-
-  }
+  @for (w of weekDays; track $index) {
+  <span class="text-center">{{ w }}</span>
+  } @for (day of days; track $index) { @if ($index == 0) {
+  <app-date-card [style]="getColStart(day.weekDay)">{{ day.day }}</app-date-card>
+  } @else {
+  <app-date-card>{{ day.day }}</app-date-card>
+  } }
 </div>
 
 <router-outlet />
