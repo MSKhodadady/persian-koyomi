@@ -17,7 +17,7 @@
     } @for (day of days(); track $index) { @if ($index == 0) {
     <app-date-card [style]="getColStart(day.weekDay)">{{ day.day }}</app-date-card>
     } @else {
-    <app-date-card>{{ day.day }}</app-date-card>
+    <app-date-card [dayNum]="day.day" [weekDay]="day.weekDay" />
     } }
   </div>
 </div>
