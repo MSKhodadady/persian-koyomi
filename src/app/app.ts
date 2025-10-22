@@ -26,6 +26,7 @@ export class App {
 
     this.month.set(now.month);
     this.year.set(now.year);
+
     this.days.set(this.dayGenerator.getPersianMonthDays(now.year, now.month.number));
   }
 
