@@ -15,9 +15,19 @@
     @for (w of weekDays; track $index) {
     <span class="text-center">{{ w }}</span>
     } @for (day of days(); track $index) { @if ($index == 0) {
-    <app-date-card [style]="getColStart(day.weekDay)" [dayNum]="day.day" [weekDay]="day.weekDay" />
+    <app-date-card
+      [style]="getColStart(day.weekDay)"
+      [dayNum]="day.day"
+      [weekDay]="day.weekDay"
+      [currentMonth]="day.currentMonth ? 1 : 0"
+    />
     } @else {
-    <app-date-card [dayNum]="day.day" [weekDay]="day.weekDay" />
+    <app-date-card
+      [style]="getColStart(day.weekDay)"
+      [dayNum]="day.day"
+      [weekDay]="day.weekDay"
+      [currentMonth]="day.currentMonth ? 1 : 0"
+    />
     } }
   </div>
 </div>

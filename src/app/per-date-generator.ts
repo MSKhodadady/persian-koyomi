@@ -7,7 +7,7 @@ import persian_fa from 'react-date-object/locales/persian_fa';
   providedIn: 'root',
 })
 export class PerDateGenerator {
-  getPersianMonthDays(year: number, month: number) {
+  getPersianMonthDays(year: number, month: number): DaySlot[] {
     if (month < 1 || month > 12) return [];
 
     const startDay = new DateObject({ locale: persian_fa, calendar: persian });
