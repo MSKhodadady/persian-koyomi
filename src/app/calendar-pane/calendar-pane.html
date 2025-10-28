@@ -1,4 +1,4 @@
-<div class="grid grid-cols-7 gap-4 w-full text-xs md:text-base">
+<div class="w-full h-full grid grid-cols-7 gap-4 text-xs md:text-base">
   @for (day of days(); track $index) { @if ($index == 0) {
   <app-date-card
     [style]="getColStart(day.weekDay)"

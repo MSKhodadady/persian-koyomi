@@ -14,17 +14,13 @@ import { ToolBar } from './tool-bar/tool-bar';
 })
 export class App {
   dayGenerator = inject(PerDateGenerator);
-
   weekDays = WEEK_DAYS;
 
   title = signal('persian-koyomi');
-
   months = signal<{ year: number; month: number }[]>([]);
-
   last = computed(() => {
     const ms = this.months(),
       last = ms[ms.length - 1];
-
     return last;
   });
 

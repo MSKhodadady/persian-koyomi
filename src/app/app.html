@@ -1,6 +1,6 @@
 <app-tool-bar />
 
-<div class="flex flex-col p-4 gap-4">
+<div class="flex flex-col p-4 gap-4 h-[90vh]">
   <div class="w-full flex justify-between">
     <button matButton="elevated" (click)="preMonth()">ماه قبلی</button>
 
@@ -17,12 +17,15 @@
     }
   </div>
 
-  @for (m of months(); track `${m.month}${m.year}`) {
-  <app-calendar-pane
-    [year]="m.year"
-    [month]="m.month"
-    animate.leave="leaving"
-    animate.enter="enter-animation"
-  />
-  }
+  <div class="h-full relative">
+    @for (m of months(); track `${m.month}${m.year}`) {
+    <app-calendar-pane
+      [year]="m.year"
+      [month]="m.month"
+      animate.leave="leaving"
+      animate.enter="enter-animation"
+      class="absolute top-0 left-0 w-full h-full"
+    />
+    }
+  </div>
 </div>
