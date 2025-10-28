@@ -4,30 +4,25 @@
   <div class="w-full flex justify-between">
     <button matButton="elevated" (click)="preMonth()">ماه قبلی</button>
 
-    <span class="font-bold text-xl">{{ year() }} / {{ month().name }}</span>
+    <span class="font-bold text-xl">{{ last().year }} / {{ last().month }}</span>
 
     <button matButton="elevated" (click)="nextMonth()">ماه بعدی</button>
   </div>
 
   <mat-divider />
 
-  <div class="grid grid-cols-[repeat(7,1fr)] gap-4 w-full text-xs md:text-base">
+  <div class="grid grid-cols-7 gap-4 w-full text-xs md:text-base">
     @for (w of weekDays; track $index) {
     <span class="text-center">{{ w }}</span>
-    } @for (day of days(); track $index) { @if ($index == 0) {
-    <app-date-card
-      [style]="getColStart(day.weekDay)"
-      [dayNum]="day.day"
-      [weekDay]="day.weekDay"
-      [currentMonth]="day.currentMonth ? 1 : 0"
-    />
-    } @else {
-    <app-date-card
-      [style]="getColStart(day.weekDay)"
-      [dayNum]="day.day"
-      [weekDay]="day.weekDay"
-      [currentMonth]="day.currentMonth ? 1 : 0"
-    />
-    } }
+    }
   </div>
+
+  @for (m of months(); track `${m.month}${m.year}`) {
+  <app-calendar-pane
+    [year]="m.year"
+    [month]="m.month"
+    animate.leave="leaving"
+    animate.enter="enter-animation"
+  />
+  }
 </div>

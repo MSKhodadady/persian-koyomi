@@ -1,17 +1,16 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
-import DateObject from 'react-date-object';
 import { WEEK_DAYS } from '../lib/constants';
-import { DateCard } from './date-card/date-card';
+import { CalendarPane } from './calendar-pane/calendar-pane';
 import { PerDateGenerator } from './per-date-generator';
 import { ToolBar } from './tool-bar/tool-bar';
 
 @Component({
   selector: 'app-root',
-  imports: [ToolBar, DateCard, MatButtonModule, MatDividerModule],
+  imports: [ToolBar, MatButtonModule, MatDividerModule, CalendarPane],
   templateUrl: './app.html',
-  styleUrl: './app.scss',
+  styleUrl: './app.css',
 })
 export class App {
   dayGenerator = inject(PerDateGenerator);
@@ -20,62 +19,48 @@ export class App {
 
   title = signal('persian-koyomi');
 
-  month = signal<{ name: string; number: number }>({ name: '', number: 0 });
-  year = signal<number>(0);
-  days = signal<DaySlotC[]>([]);
+  months = signal<{ year: number; month: number }[]>([]);
 
-  setByDateObj(d: DateObject) {
-    this.month.set(d.month);
-    this.year.set(d.year);
+  last = computed(() => {
+    const ms = this.months(),
+      last = ms[ms.length - 1];
 
-    const currentMonth = this.dayGenerator
-      .getPersianMonthDays(d.year, d.month.number)
-      .map((i) => ({ ...i, currentMonth: true }));
-
-    d.add(1, 'month');
-    const nextMonth = this.dayGenerator
-      .getPersianMonthDays(d.year, d.month.number)
-      .map((i) => ({ ...i, currentMonth: false }));
-
-    d.subtract(2, 'month');
-    const preMonth = this.dayGenerator
-      .getPersianMonthDays(d.year, d.month.number)
-      .map((i) => ({ ...i, currentMonth: false }));
-
-    this.days.set([preMonth, currentMonth, nextMonth].flat());
-  }
+    return last;
+  });
 
   ngOnInit() {
     const now = this.dayGenerator.getNow();
 
-    this.setByDateObj(now);
-  }
-
-  getColStart(num: number) {
-    return {
-      'grid-column-start': num,
-    };
+    const year = now.year,
+      month = now.month.number;
+    this.months.update((vs) => [{ year, month }]);
   }
 
   nextMonth() {
-    const now = this.dayGenerator.getNow();
+    const now = this.dayGenerator.getNow(),
+      last = this.last();
 
-    now.setYear(this.year());
-    now.setMonth(this.month().number);
+    now.setYear(last.year);
+    now.setMonth(last.month);
 
     now.add(1, 'month');
 
-    this.setByDateObj(now);
+    const year = now.year,
+      month = now.month.number;
+    this.months.update((vs) => [{ year, month }]);
   }
 
   preMonth() {
-    const now = this.dayGenerator.getNow();
+    const now = this.dayGenerator.getNow(),
+      last = this.last();
 
-    now.setYear(this.year());
-    now.setMonth(this.month().number);
+    now.setYear(last.year);
+    now.setMonth(last.month);
 
     now.subtract(1, 'month');
 
-    this.setByDateObj(now);
+    const year = now.year,
+      month = now.month.number;
+    this.months.update((vs) => [{ year, month }]);
   }
 }
