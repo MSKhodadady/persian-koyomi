@@ -22,9 +22,7 @@
     <app-calendar-pane
       [year]="m.year"
       [month]="m.month"
-      animate.leave="leaving"
-      animate.enter="enter-animation"
-      class="absolute top-0 left-0 w-full h-full"
+      [class]="`absolute top-0 left-0 w-full h-full ${getCalendarPaneClassName(m.state)}`"
     />
     }
   </div>

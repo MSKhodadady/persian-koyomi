@@ -1,7 +1,4 @@
-.enter-animation {
-  animation: slide-fade 500ms;
-}
-@keyframes slide-fade {
+@keyframes enter-right {
   from {
     opacity: 0;
     transform: translateX(50px);
@@ -12,8 +9,50 @@
   }
 }
 
-.leaving {
-  opacity: 0;
-  transform: translateX(-50px);
-  transition: opacity 500ms ease-out, transform 500ms ease-out;
+.enter-right {
+  animation: 500ms linear 0s enter-right forwards;
+}
+
+@keyframes exit-right {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+}
+
+.exit-right {
+  animation: 500ms linear 0s exit-right forwards;
+}
+
+@keyframes enter-left {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.enter-left {
+  animation: 500ms linear 0s enter-left forwards;
+}
+
+@keyframes exit-left {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+}
+
+.exit-left {
+  animation: 500ms linear 0s exit-left forwards;
 }
