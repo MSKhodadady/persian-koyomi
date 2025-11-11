@@ -1,0 +1,14 @@
+{
+  "exclude": ["node_modules"],
+  "include": ["**/*.js", "**/*.d.ts"],
+
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "noEmit": true
+  }
+}
